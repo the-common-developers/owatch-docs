@@ -1,0 +1,2 @@
+- id: REQ_DATA_0001
+  requirement: The Overwatch REST API shall only process and store data in the United Kingdom.
