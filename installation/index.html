@@ -306,27 +306,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-the-go-toolchain" class="md-nav__link">
+  <a href="#linux-and-macos" class="md-nav__link">
     <span class="md-ellipsis">
-      With the Go toolchain
+      Linux and macOS
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-source" class="md-nav__link">
+  <a href="#windows" class="md-nav__link">
     <span class="md-ellipsis">
-      From source
+      Windows
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#prebuilt-binaries" class="md-nav__link">
+  <a href="#verify-the-install" class="md-nav__link">
     <span class="md-ellipsis">
-      Prebuilt binaries
+      Verify the install
     </span>
   </a>
   
@@ -480,27 +480,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-the-go-toolchain" class="md-nav__link">
+  <a href="#linux-and-macos" class="md-nav__link">
     <span class="md-ellipsis">
-      With the Go toolchain
+      Linux and macOS
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-source" class="md-nav__link">
+  <a href="#windows" class="md-nav__link">
     <span class="md-ellipsis">
-      From source
+      Windows
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#prebuilt-binaries" class="md-nav__link">
+  <a href="#verify-the-install" class="md-nav__link">
     <span class="md-ellipsis">
-      Prebuilt binaries
+      Verify the install
     </span>
   </a>
   
@@ -523,27 +523,34 @@
 
 
 <h1 id="installation">Installation</h1>
-<h2 id="with-the-go-toolchain">With the Go toolchain</h2>
-<p>Overwatch is a single static binary. With <a href="https://go.dev/dl/">Go</a> 1.25 or
-newer installed:</p>
-<div class="highlight"><pre><span></span><code>go<span class="w"> </span>install<span class="w"> </span>github.com/the-common-developers/owatch/cmd/owatch@latest
+<p>Overwatch ships as a single static binary. Prebuilt archives for Linux,
+macOS, and Windows are published on the
+<a href="https://github.com/the-common-developers/owatch-releases/releases">releases page</a>.</p>
+<h2 id="linux-and-macos">Linux and macOS</h2>
+<p>Pick the latest version from the releases page, then substitute it and
+your platform below. Archives are named
+<code>owatch_&lt;version&gt;_&lt;os&gt;_&lt;arch&gt;.tar.gz</code> — <code>linux</code> or <code>darwin</code>, <code>amd64</code> or
+<code>arm64</code> (Apple Silicon is <code>darwin_arm64</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="nv">VERSION</span><span class="o">=</span><span class="m">0</span>.1.0
+<span class="nv">PLATFORM</span><span class="o">=</span>linux_amd64
+
+curl<span class="w"> </span>-LO<span class="w"> </span><span class="s2">"https://github.com/the-common-developers/owatch-releases/releases/download/v</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">/owatch_</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">PLATFORM</span><span class="si">}</span><span class="s2">.tar.gz"</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span><span class="s2">"owatch_</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">PLATFORM</span><span class="si">}</span><span class="s2">.tar.gz"</span>
+sudo<span class="w"> </span>install<span class="w"> </span>owatch<span class="w"> </span>/usr/local/bin/
 </code></pre></div>
-<p>The binary lands in <code>$(go env GOPATH)/bin</code> (usually <code>~/go/bin</code>). If
-<code>owatch</code> isn't found afterwards, that directory is missing from your
-<code>PATH</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>go<span class="w"> </span>env<span class="w"> </span>GOPATH<span class="k">)</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<p>To verify the download, every release includes a <code>checksums.txt</code>:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-LO<span class="w"> </span><span class="s2">"https://github.com/the-common-developers/owatch-releases/releases/download/v</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">/checksums.txt"</span>
+sha256sum<span class="w"> </span>--check<span class="w"> </span>--ignore-missing<span class="w"> </span>checksums.txt
 </code></pre></div>
-<p>Verify the install:</p>
-<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>--help
+<p>(macOS ships <code>shasum</code> instead: <code>shasum -a 256 --check --ignore-missing checksums.txt</code>.)</p>
+<h2 id="windows">Windows</h2>
+<p>Download <code>owatch_&lt;version&gt;_windows_amd64.zip</code> from the
+<a href="https://github.com/the-common-developers/owatch-releases/releases">releases page</a>,
+extract <code>owatch.exe</code>, and place it somewhere on your <code>PATH</code>.</p>
+<h2 id="verify-the-install">Verify the install</h2>
+<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>--version
 </code></pre></div>
-<h2 id="from-source">From source</h2>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/the-common-developers/owatch.git
-<span class="nb">cd</span><span class="w"> </span>owatch
-make<span class="w"> </span>build<span class="w">   </span><span class="c1"># produces ./bin/owatch</span>
-</code></pre></div>
-<h2 id="prebuilt-binaries">Prebuilt binaries</h2>
-<p>Not published yet. Release archives for Linux, macOS, and Windows are
-planned; until then the Go toolchain route above is the supported path.</p>
+<p>This prints the release version, e.g. <code>owatch version 0.1.0</code>.</p>
 
 
 
