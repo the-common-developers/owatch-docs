@@ -328,6 +328,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Configuration
@@ -489,6 +498,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Configuration
@@ -541,20 +559,33 @@
 
 
 <h1 id="getting-started">Getting started</h1>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Overwatch can only be used by requesting an account from <code>support.owatch@proton.me</code>.</p>
 <h2 id="configuration">Configuration</h2>
-<p><code>owatch</code> is configured entirely through environment variables — there are
-no config files and no URL flags:</p>
+<p>A released <code>owatch</code> binary needs no configuration: the API URL, Cognito
+client ID, and AWS region of the Overwatch deployment are embedded at
+build time.</p>
+<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>login
+</code></pre></div>
+<p>You'll be prompted for your username and password (and, on first login,
+for a new password). On success the CLI stores a refresh token in a
+credentials file — <code>~/.config/owatch/credentials.json</code> on Linux,
+<code>~/Library/Application Support/owatch/credentials.json</code> on macOS,
+<code>%AppData%\owatch\credentials.json</code> on Windows — and prints its path.
+The token lasts 30 days; when it expires, run <code>owatch login</code> again.</p>
+<p>Environment variables override the embedded values and the stored token
+— useful for CI or for pointing at a different deployment:</p>
 <table>
 <thead>
 <tr>
 <th>Variable</th>
-<th>What it is</th>
+<th>What it overrides</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>OWATCH_API_URL</code></td>
-<td>Base URL of the Overwatch REST API deployment.</td>
+<td>Base URL of the Overwatch REST API.</td>
 </tr>
 <tr>
 <td><code>COGNITO_CLIENT_ID</code></td>
@@ -566,17 +597,10 @@ no config files and no URL flags:</p>
 </tr>
 <tr>
 <td><code>OWATCH_REFRESH_TOKEN</code></td>
-<td>Your Cognito refresh token; exchanged for an access token on every run.</td>
+<td>The refresh token stored by <code>owatch login</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>All four come from the operator of the Overwatch deployment you're using.
-A missing variable fails fast with an error naming it.</p>
-<div class="admonition note">
-<p class="admonition-title">Developing Overwatch itself?</p>
-<p>A deployed dev stack provides all four: run <code>make login</code> once, then
-<code>eval "$(make export-envvars)"</code> in your shell.</p>
-</div>
 <h2 id="the-requirements-file">The requirements file</h2>
 <p>Requirements live in a YAML file: a list of entries, each with a
 free-form <code>id</code> and the <code>requirement</code> text.</p>
@@ -605,12 +629,13 @@ has written to the current directory:</p>
 <a href="../cli/owatch/">CLI reference</a> for every command and flag.</p>
 <h2 id="when-it-fails">When it fails</h2>
 <ul>
-<li><strong><code>OWATCH_API_URL is not set</code></strong> (or any of the other three) — the
-  environment isn't configured; see <a href="#configuration">Configuration</a>.</li>
+<li><strong><code>OWATCH_API_URL is not set and this build has no embedded default</code></strong>
+  (or any of the other two) — you're running a locally built binary; see
+  the note in <a href="#configuration">Configuration</a>.</li>
 <li><strong><code>unknown command "./requirements.yaml"</code></strong> — the <code>assess</code> subcommand
   was omitted: it's <code>owatch assess -r ... &lt;file&gt;</code>, not <code>owatch -r ...</code>.</li>
-<li><strong><code>authenticating: ...</code></strong> — the refresh token has expired or the
-  Cognito details are wrong; obtain fresh credentials from your operator.</li>
+<li><strong><code>not logged in</code></strong> or <strong><code>refresh token rejected (expired or
+  revoked)</code></strong> — run <code>owatch login</code>.</li>
 <li><strong>A <code>500</code> from the API</strong> — the failure is server-side (the model call
   itself, or its configuration); nothing the CLI flags can fix. Report it
   to your operator.</li>
