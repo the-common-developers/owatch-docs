@@ -346,9 +346,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-requirements-file" class="md-nav__link">
+  <a href="#the-requirements-directory" class="md-nav__link">
     <span class="md-ellipsis">
-      The requirements file
+      The requirements directory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tags
     </span>
   </a>
   
@@ -539,9 +548,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-requirements-file" class="md-nav__link">
+  <a href="#the-requirements-directory" class="md-nav__link">
     <span class="md-ellipsis">
-      The requirements file
+      The requirements directory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tags
     </span>
   </a>
   
@@ -624,19 +642,61 @@ The token lasts 30 days; when it expires, run <code>owatch login</code> again.</
 </tr>
 </tbody>
 </table>
-<h2 id="the-requirements-file">The requirements file</h2>
-<p>Requirements live in a YAML file: a list of entries, each with a
-free-form <code>id</code> and the <code>requirement</code> text.</p>
+<h2 id="the-requirements-directory">The requirements directory</h2>
+<p>Requirements live in YAML files: a list of entries, each with a
+free-form <code>id</code>, the <code>requirement</code> text, and an optional list of <code>tags</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span>
 <span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">When a user submits a requirement, the Overwatch REST API shall return an assessment.</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_002</span>
 <span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system should probably be fast.</span>
 </code></pre></div>
 <p>IDs must be non-empty and contain only letters, digits, <code>_</code> or <code>-</code>, so
 they stay unambiguous in YAML, logs, and error messages.</p>
+<p>Those files live together in a directory, which is the unit Overwatch
+reads. Every <code>.yaml</code> and <code>.yml</code> file directly inside it is read, and
+anything else is ignored:</p>
+<div class="highlight"><pre><span></span><code>requirements/
+  requirements.yaml   read
+  releases.yaml       read
+  legacy.yml          read
+  notes.md            ignored
+  archive/            ignored
+</code></pre></div>
+<p>How you split your requirements across those files is entirely your
+choice. A single file works, and so does one per feature. Overwatch
+reads nothing into the file names, so splitting or merging files never
+changes what a requirement means. Use <code>tags</code> to say what a requirement
+is about.</p>
+<p>Requirements are read in ascending file-name order, and in their own
+order within each file. That is the order assessment results come back
+in.</p>
+<p>Each requirement id must be unique within the directory, whichever file
+holds it, because the id is how you name a single requirement. A
+sub-directory is a separate scope with its own ids and tags, and is
+never read as part of its parent.</p>
+<h2 id="tags">Tags</h2>
+<p>Tags say which feature, service or component a requirement is about.
+They are how you ask which requirements relate to a given part of your
+system, and a requirement may carry as many as it needs — the one above
+is about both the API and the assess feature.</p>
+<p>Tags are yours to choose. Overwatch defines no vocabulary and reads
+nothing into your file names, because only you know how your system
+divides up. The only rules are that a tag is not empty and contains no
+whitespace, so it stays a single token everywhere it is handled.</p>
+<p>Tags are also matched exactly, so <code>api</code> and <code>API</code> are two different
+tags. Keeping the spelling consistent is what keeps a query over them
+complete.</p>
+<p>Tags are optional. A requirement without them is as valid as it ever
+was, and nothing about the assessment changes: the verdict depends on
+the requirement text alone.</p>
 <h2 id="assessing-a-requirement">Assessing a requirement</h2>
-<p>Name the requirement to assess with <code>-r</code> and pass the file:</p>
-<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>assess<span class="w"> </span>-r<span class="w"> </span>REQ_001<span class="w"> </span>./requirements.yaml
+<p>Pass the requirements directory to assess everything in it:</p>
+<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>assess<span class="w"> </span>./requirements
+</code></pre></div>
+<p>Or name a single requirement with <code>-r</code>. The id is looked up across the
+whole directory, so you do not have to know which file holds it:</p>
+<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>assess<span class="w"> </span>-r<span class="w"> </span>REQ_001<span class="w"> </span>./requirements
 </code></pre></div>
 <p>On success the CLI prints the name of a time-stamped assessment file it
 has written to the current directory:</p>
@@ -647,7 +707,11 @@ has written to the current directory:</p>
 <span class="w">  </span><span class="nt">ears_assessment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Compliant</span>
 <span class="w">  </span><span class="nt">matched_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Event-driven</span>
 <span class="w">  </span><span class="nt">rationale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The requirement follows the When &lt;trigger&gt;, the &lt;system&gt; shall &lt;response&gt; shape.</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span>
 </code></pre></div>
+<p>Any tags the requirement carries are copied onto its result, so an
+assessment file can be filtered by tag on its own. A requirement with no
+tags produces a result with no <code>tags</code> key.</p>
 <p>See <a href="../">Home</a> for what the verdicts and patterns mean, and the
 <a href="../cli/owatch/">CLI reference</a> for every command and flag.</p>
 <h2 id="when-it-fails">When it fails</h2>
@@ -655,8 +719,16 @@ has written to the current directory:</p>
 <li><strong><code>OWATCH_API_URL is not set and this build has no embedded default</code></strong>
   (or any of the other two) — you're running a locally built binary; see
   the note in <a href="#configuration">Configuration</a>.</li>
-<li><strong><code>unknown command "./requirements.yaml"</code></strong> — the <code>assess</code> subcommand
-  was omitted: it's <code>owatch assess -r ... &lt;file&gt;</code>, not <code>owatch -r ...</code>.</li>
+<li><strong><code>unknown command "./requirements"</code></strong> — the <code>assess</code> subcommand was
+  omitted: it's <code>owatch assess -r ... &lt;dir&gt;</code>, not <code>owatch -r ...</code>.</li>
+<li><strong><code>... is a file: assess takes a requirements directory</code></strong> — you passed
+  a requirements file. Pass the directory holding it instead.</li>
+<li><strong><code>... holds no requirements files (.yaml or .yml)</code></strong> — the directory
+  exists but nothing in it has a YAML extension. Check you named the
+  directory holding your requirements, not its parent.</li>
+<li><strong><code>duplicate requirement ids</code></strong> — two requirements in the directory
+  share an id. Ids must be unique across the whole directory, not just
+  within one file.</li>
 <li><strong><code>not logged in</code></strong> or <strong><code>refresh token rejected (expired or
   revoked)</code></strong> — run <code>owatch login</code>.</li>
 <li><strong>A <code>500</code> from the API</strong> — the failure is server-side (the model call
