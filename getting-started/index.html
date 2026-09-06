@@ -16,7 +16,7 @@
         <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../cli/owatch/">
+        <link rel="next" href="../validation-rules/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -364,6 +364,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#checking-your-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking your requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#assessing-a-requirement" class="md-nav__link">
     <span class="md-ellipsis">
       Assessing a requirement
@@ -395,6 +404,28 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../validation-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
@@ -404,10 +435,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -420,8 +451,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             CLI reference
           </label>
@@ -496,6 +527,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/owatch_validate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    owatch validate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -560,6 +614,15 @@
   <a href="#tags" class="md-nav__link">
     <span class="md-ellipsis">
       Tags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-your-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking your requirements
     </span>
   </a>
   
@@ -690,6 +753,30 @@ complete.</p>
 <p>Tags are optional. A requirement without them is as valid as it ever
 was, and nothing about the assessment changes: the verdict depends on
 the requirement text alone.</p>
+<h2 id="checking-your-requirements">Checking your requirements</h2>
+<p><code>owatch validate</code> checks a requirements directory without calling the
+API, so it costs nothing to run:</p>
+<div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>validate<span class="w"> </span>./requirements
+</code></pre></div>
+<p>It reports every problem it finds, with the file, line and column each
+was found at:</p>
+<div class="highlight"><pre><span></span><code>╷
+│ Error: Requirement id is used more than once (duplicate-id)
+│
+│   on core.yaml line 1, column 7:
+│    1: - id: REQ_001
+│
+│ The id "REQ_001" is already used by the requirement at api.yaml line 1.
+│ An id must name exactly one requirement within a directory.
+╵
+1 error and 0 warnings.
+</code></pre></div>
+<p>Add <code>--output-file</code> to write the same findings as YAML for a CI job to
+archive or parse. See <a href="../validation-rules/">Validation rules</a> for what
+is checked and what each rule name means.</p>
+<p><code>owatch assess</code> runs these checks first and refuses to request anything
+if they fail, so a mistake in a requirements file never costs an API
+call to discover.</p>
 <h2 id="assessing-a-requirement">Assessing a requirement</h2>
 <p>Pass the requirements directory to assess everything in it:</p>
 <div class="highlight"><pre><span></span><code>owatch<span class="w"> </span>assess<span class="w"> </span>./requirements
@@ -721,14 +808,15 @@ tags produces a result with no <code>tags</code> key.</p>
   the note in <a href="#configuration">Configuration</a>.</li>
 <li><strong><code>unknown command "./requirements"</code></strong> — the <code>assess</code> subcommand was
   omitted: it's <code>owatch assess -r ... &lt;dir&gt;</code>, not <code>owatch -r ...</code>.</li>
-<li><strong><code>... is a file: assess takes a requirements directory</code></strong> — you passed
+<li><strong><code>... is a file: a requirements directory is required</code></strong> — you passed
   a requirements file. Pass the directory holding it instead.</li>
 <li><strong><code>... holds no requirements files (.yaml or .yml)</code></strong> — the directory
   exists but nothing in it has a YAML extension. Check you named the
   directory holding your requirements, not its parent.</li>
-<li><strong><code>duplicate requirement ids</code></strong> — two requirements in the directory
-  share an id. Ids must be unique across the whole directory, not just
-  within one file.</li>
+<li><strong>A block of diagnostics followed by <code>no assessments requested</code></strong> —
+  the requirements directory failed validation, so nothing was sent.
+  Each diagnostic names the rule that raised it; see
+  <a href="../validation-rules/">Validation rules</a>.</li>
 <li><strong><code>not logged in</code></strong> or <strong><code>refresh token rejected (expired or
   revoked)</code></strong> — run <code>owatch login</code>.</li>
 <li><strong>A <code>500</code> from the API</strong> — the failure is server-side (the model call
@@ -781,13 +869,13 @@ tags produces a result with no <code>tags</code> key.</p>
         
         
           
-          <a href="../cli/owatch/" class="md-footer__link md-footer__link--next" aria-label="Next: owatch">
+          <a href="../validation-rules/" class="md-footer__link md-footer__link--next" aria-label="Next: Validation rules">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                owatch
+                Validation rules
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://the-common-developers.github.io/owatch-docs/cli/owatch/">
+        <link rel="canonical" href="https://the-common-developers.github.io/owatch-docs/validation-rules/">
       
       
-        <link rel="prev" href="../../validation-rules/">
+        <link rel="prev" href="../getting-started/">
       
       
-        <link rel="next" href="../owatch_assess/">
+        <link rel="next" href="../cli/owatch/">
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>owatch - Overwatch</title>
+        <title>Validation rules - Overwatch</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#owatch" class="md-skip">
+        <a href="#validation-rules" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Overwatch" class="md-header__button md-logo" aria-label="Overwatch" data-md-component="logo">
+    <a href=".." title="Overwatch" class="md-header__button md-logo" aria-label="Overwatch" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              owatch
+              Validation rules
             
           </span>
         </div>
@@ -216,7 +216,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Overwatch" class="md-nav__button md-logo" aria-label="Overwatch" data-md-component="logo">
+    <a href=".." title="Overwatch" class="md-nav__button md-logo" aria-label="Overwatch" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -234,7 +234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -256,7 +256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -278,7 +278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -297,10 +297,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../validation-rules/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Validation rules
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -311,6 +333,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-requirement-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      The requirement schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      The rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-report-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing a report file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exit status
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -319,20 +397,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -348,7 +424,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             CLI reference
@@ -359,30 +435,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    owatch
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../cli/owatch/" class="md-nav__link">
         
   
   
@@ -393,57 +449,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#owatch" class="md-nav__link">
-    <span class="md-ellipsis">
-      owatch
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="owatch">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Options
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEE ALSO
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -456,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../owatch_assess/" class="md-nav__link">
+      <a href="../cli/owatch_assess/" class="md-nav__link">
         
   
   
@@ -479,7 +484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../owatch_login/" class="md-nav__link">
+      <a href="../cli/owatch_login/" class="md-nav__link">
         
   
   
@@ -502,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../owatch_validate/" class="md-nav__link">
+      <a href="../cli/owatch_validate/" class="md-nav__link">
         
   
   
@@ -542,6 +547,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -550,35 +557,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#owatch" class="md-nav__link">
+  <a href="#the-requirement-schema" class="md-nav__link">
     <span class="md-ellipsis">
-      owatch
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="owatch">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Options
+      The requirement schema
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#the-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      SEE ALSO
+      The rules
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-report-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing a report file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exit status
+    </span>
+  </a>
   
 </li>
       
@@ -598,20 +608,134 @@
 
 
 
-  <h1>owatch</h1>
-
-<h2 id="owatch">owatch</h2>
-<p>Requirements correctness tool.</p>
-<h3 id="options">Options</h3>
-<div class="highlight"><pre><span></span><code>  -h, --help      help for owatch
-  -v, --version   version for owatch
+<h1 id="validation-rules">Validation rules</h1>
+<p><code>owatch validate</code> checks a requirements directory against the rules below and
+reports each problem with the file, line and column it was found at. It makes
+no network calls, so it costs nothing to run as often as you like — and it is
+the cheapest way to find a problem before <code>owatch assess</code> would bill for one.</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>owatch<span class="w"> </span>validate<span class="w"> </span>./requirements
+<span class="go">Success! The requirements in ./requirements are valid.</span>
 </code></pre></div>
-<h3 id="see-also">SEE ALSO</h3>
-<ul>
-<li><a href="../owatch_assess/">owatch assess</a>  - Assess the requirements in a requirements directory.</li>
-<li><a href="../owatch_login/">owatch login</a>    - Log in and store the refresh token the other commands use.</li>
-<li><a href="../owatch_validate/">owatch validate</a>  - Check the requirements in a requirements directory.</li>
-</ul>
+<p>Every rule has a name, which appears in brackets on the diagnostic it raised:</p>
+<div class="highlight"><pre><span></span><code>╷
+│ Error: Requirement id is used more than once (duplicate-id)
+│
+│   on core.yaml line 1, column 7:
+│    1: - id: REQ_001
+│
+│ The id "REQ_001" is already used by the requirement at api.yaml line 1.
+│ An id must name exactly one requirement within a directory.
+╵
+1 error and 0 warnings.
+</code></pre></div>
+<p><code>owatch assess</code> runs the same rules before it requests anything, so a directory
+that fails <code>validate</code> will not be assessed.</p>
+<h2 id="the-requirement-schema">The requirement schema</h2>
+<p>A requirement holds three fields, and no others:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span><span class="w">                                    </span><span class="c1"># required</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system shall do the thing.</span><span class="w">    </span><span class="c1"># required</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">cli</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span><span class="w">                            </span><span class="c1"># optional</span>
+</code></pre></div>
+<p>An <code>id</code> may hold letters, digits, <code>_</code> and <code>-</code>. Ids must be unique within a
+requirements directory, but the same id may be used in a different requirements
+directory elsewhere.</p>
+<h2 id="the-rules">The rules</h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Severity</th>
+<th>Raised when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>invalid-yaml</code></td>
+<td>Error</td>
+<td>A requirements file cannot be parsed as YAML. The other files are still checked.</td>
+</tr>
+<tr>
+<td><code>invalid-document</code></td>
+<td>Error</td>
+<td>A requirements file's top-level value is not a list.</td>
+</tr>
+<tr>
+<td><code>missing-id</code></td>
+<td>Error</td>
+<td>A requirement has no <code>id</code>, or its <code>id</code> is empty.</td>
+</tr>
+<tr>
+<td><code>invalid-id</code></td>
+<td>Error</td>
+<td>An <code>id</code> holds a character other than a letter, a digit, <code>_</code> or <code>-</code>.</td>
+</tr>
+<tr>
+<td><code>duplicate-id</code></td>
+<td>Error</td>
+<td>An <code>id</code> is used by more than one requirement in the directory. Raised against each use after the first.</td>
+</tr>
+<tr>
+<td><code>missing-requirement</code></td>
+<td>Error</td>
+<td>A requirement has no <code>requirement</code> text, or its text is empty.</td>
+</tr>
+<tr>
+<td><code>invalid-tag</code></td>
+<td>Error</td>
+<td>A tag is empty, or holds whitespace.</td>
+</tr>
+<tr>
+<td><code>unknown-field</code></td>
+<td>Error</td>
+<td>A requirement holds a field the schema does not define.</td>
+</tr>
+<tr>
+<td><code>no-requirements</code></td>
+<td>Error</td>
+<td>The directory holds requirements files, but none of them holds a requirement.</td>
+</tr>
+</tbody>
+</table>
+<p><code>unknown-field</code> is the rule worth knowing about. A mistyped key is valid YAML
+and parses without complaint, so without this rule a requirement would quietly
+lose its tags with nothing to show that it happened:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system shall do the thing.</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cli</span><span class="w">          </span><span class="c1"># unknown-field: "tag" is ignored, the requirement has no tags</span>
+</code></pre></div>
+<p>Tags are compared exactly, so <code>API</code> and <code>api</code> are two different tags. That is
+deliberate: only you know whether your system means them as one.</p>
+<h2 id="writing-a-report-file">Writing a report file</h2>
+<p><code>--output-file</code> writes the diagnostics as YAML, for a CI job to archive or
+parse. The report is written whether or not anything was found, so a passing
+run still produces an artefact:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>owatch<span class="w"> </span>validate<span class="w"> </span>./requirements<span class="w"> </span>--output-file<span class="w"> </span>validation.yaml
+<span class="go">validation.yaml</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">valid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">error_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">warning_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">diagnostics</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error</span>
+<span class="w">  </span><span class="nt">rule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">duplicate-id</span>
+<span class="w">  </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Requirement id is used more than once</span>
+<span class="w">  </span><span class="nt">detail</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The id "REQ_001" is already used by the requirement at api.yaml line 1.</span>
+<span class="w">  </span><span class="nt">range</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core.yaml</span>
+<span class="w">    </span><span class="nt">start</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">line</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">    </span><span class="nt">end</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">line</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+</code></pre></div>
+<p>The diagnostics go to standard error and the report path to standard output, so
+the path can be piped somewhere without the diagnostics arriving with it.</p>
+<h2 id="exit-status">Exit status</h2>
+<p><code>validate</code> exits non-zero if any rule raised an error, and zero otherwise.
+Warnings do not fail a run. No rule raises a warning today; the severity exists
+because it is a property of a diagnostic rather than of the command, so the
+report format will not change when the first advisory rule is added.</p>
 
 
 
@@ -641,7 +765,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../validation-rules/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Validation rules">
+          <a href="../getting-started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting started">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -651,20 +775,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Validation rules
+                Getting started
               </div>
             </div>
           </a>
         
         
           
-          <a href="../owatch_assess/" class="md-footer__link md-footer__link--next" aria-label="Next: owatch assess">
+          <a href="../cli/owatch/" class="md-footer__link md-footer__link--next" aria-label="Next: owatch">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                owatch assess
+                owatch
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -700,10 +824,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>

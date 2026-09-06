@@ -13,6 +13,10 @@
          <lastmod>2026-09-06</lastmod>
     </url>
     <url>
+         <loc>https://the-common-developers.github.io/owatch-docs/validation-rules/</loc>
+         <lastmod>2026-09-06</lastmod>
+    </url>
+    <url>
          <loc>https://the-common-developers.github.io/owatch-docs/cli/owatch/</loc>
          <lastmod>2026-09-06</lastmod>
     </url>
@@ -22,6 +26,10 @@
     </url>
     <url>
          <loc>https://the-common-developers.github.io/owatch-docs/cli/owatch_login/</loc>
+         <lastmod>2026-09-06</lastmod>
+    </url>
+    <url>
+         <loc>https://the-common-developers.github.io/owatch-docs/cli/owatch_validate/</loc>
          <lastmod>2026-09-06</lastmod>
     </url>
 </urlset>
