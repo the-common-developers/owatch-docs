@@ -631,10 +631,11 @@ the cheapest way to find a problem before <code>owatch assess</code> would bill 
 <p><code>owatch assess</code> runs the same rules before it requests anything, so a directory
 that fails <code>validate</code> will not be assessed.</p>
 <h2 id="the-requirement-schema">The requirement schema</h2>
-<p>A requirement holds three fields, and no others:</p>
+<p>A requirement holds four fields, and no others:</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span><span class="w">                                    </span><span class="c1"># required</span>
 <span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system shall do the thing.</span><span class="w">    </span><span class="c1"># required</span>
 <span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">cli</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span><span class="w">                            </span><span class="c1"># optional</span>
+<span class="w">  </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span><span class="w">                               </span><span class="c1"># optional; the only value</span>
 </code></pre></div>
 <p>An <code>id</code> may hold letters, digits, <code>_</code> and <code>-</code>. Ids must be unique within a
 requirements directory, but the same id may be used in a different requirements
@@ -683,6 +684,11 @@ directory elsewhere.</p>
 <td><code>invalid-tag</code></td>
 <td>Error</td>
 <td>A tag is empty, or holds whitespace.</td>
+</tr>
+<tr>
+<td><code>invalid-status</code></td>
+<td>Error</td>
+<td>A <code>status</code> holds a value other than <code>accepted</code>.</td>
 </tr>
 <tr>
 <td><code>unknown-field</code></td>

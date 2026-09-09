@@ -282,9 +282,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#verdicts" class="md-nav__link">
+  <a href="#the-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Verdicts
+      The rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#characteristics-and-the-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Characteristics and the score
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suggested requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accepting-a-requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accepting a requirement
     </span>
   </a>
   
@@ -546,9 +573,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#verdicts" class="md-nav__link">
+  <a href="#the-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Verdicts
+      The rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#characteristics-and-the-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Characteristics and the score
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suggested requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accepting-a-requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accepting a requirement
     </span>
   </a>
   
@@ -590,36 +644,97 @@
 
 <h1 id="overwatch">Overwatch</h1>
 <p>Overwatch assesses software requirements for correctness.</p>
-<p>Point it at a directory of requirements and it returns a verdict on
-whether each one conforms to <a href="https://alistairmavin.com/ears/">EARS</a> — the
-Easy Approach to Requirements Syntax — along with the matched pattern and a
-short rationale.</p>
+<p>Point it at a directory of requirements and it checks each one against
+rules from the <a href="https://www.incose.org/publications/products/guide-to-writing-requirements">INCOSE Guide to Writing Requirements</a>,
+reports which rules pass and fail with the failing text quoted, derives
+the INCOSE characteristics those rules serve, and turns them into a
+quality score. A requirement that fails a rule also gets a suggested
+rewrite.</p>
 <p>Under the hood, the <code>owatch</code> CLI sends the requirement to the Overwatch
 REST API, which asks a foundation model (via Amazon Bedrock, in-region in
-<code>eu-west-2</code>) to judge it against the five EARS patterns.</p>
-<h2 id="verdicts">Verdicts</h2>
+<code>eu-west-2</code>) to judge it against each rule. The score and the
+characteristics are derived in code from the rule results, so two runs
+over the same results always give the same number.</p>
+<h2 id="the-rules">The rules</h2>
 <table>
 <thead>
 <tr>
-<th>Verdict</th>
-<th>Meaning</th>
+<th>Rule</th>
+<th>Name</th>
+<th>Fails when</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Compliant</code></td>
-<td>The requirement matches one of the five EARS patterns; <code>matched_pattern</code> names which.</td>
+<td><code>r1</code></td>
+<td>Structured Statements</td>
+<td>The requirement matches none of the five EARS patterns below. On a pass, <code>matched_pattern</code> names which one it matched.</td>
 </tr>
 <tr>
-<td><code>Non-Compliant</code></td>
-<td>It is a requirement, but fits no EARS pattern.</td>
-</tr>
-<tr>
-<td><code>Indeterminate</code></td>
-<td>It cannot be judged as a requirement at all — empty, a question, a fragment.</td>
+<td><code>r2</code></td>
+<td>Active Voice</td>
+<td>The element responsible for the behaviour is not the grammatical subject: a passive response, a nominalised action, "there shall be", or a bare pronoun.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="characteristics-and-the-score">Characteristics and the score</h2>
+<p>Each rule serves some of the INCOSE characteristics of a good
+requirement. A characteristic fails if any rule serving it fails, and
+passes if every rule serving it passes.</p>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Served by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c2</code> Appropriate</td>
+<td>r2</td>
+</tr>
+<tr>
+<td><code>c3</code> Unambiguous</td>
+<td>r1, r2</td>
+</tr>
+<tr>
+<td><code>c4</code> Complete</td>
+<td>r1, r2</td>
+</tr>
+<tr>
+<td><code>c7</code> Verifiable</td>
+<td>r1, r2</td>
+</tr>
+<tr>
+<td><code>c8</code> Correct</td>
+<td>r1, but reported as <code>not-assessed</code>: correctness needs the source need, which Overwatch does not have.</td>
+</tr>
+<tr>
+<td><code>c9</code> Conforming</td>
+<td>r1</td>
+</tr>
+</tbody>
+</table>
+<p>The quality score is the number of characteristics that pass divided by
+the number assessed, so with these two rules it moves in steps of 0.2.
+The rules are correlated: a sentence that matches no EARS pattern usually
+lacks a clear subject too, so most failing requirements score 0. That is
+the honest reading of two rules, not a bug.</p>
+<h2 id="suggested-requirements">Suggested requirements</h2>
+<p>When a rule fails, the result carries a <code>suggested_requirement</code>. The
+model is asked to build it only from the words of the original
+requirement, the EARS keywords, and <code>&lt;placeholder&gt;</code> gaps for anything it
+would otherwise have to invent: the responsible system, an actor, an
+interface, a quantity. The placeholders are the questions the original
+requirement dodged. Models do not always keep to that, so treat any
+name, verb or number in a suggestion that was not in your original as a
+guess to check, not an answer. A requirement that passes every rule gets
+no suggestion, which is how you know you are done.</p>
+<h2 id="accepting-a-requirement">Accepting a requirement</h2>
+<p>Add <code>status: accepted</code> to a requirement and <code>owatch assess</code> leaves it
+alone: no request is made, and its entry in the assessment file carries
+only its id, text, tags and status. Use it to end the argument on a
+requirement you are happy with as written.</p>
 <h2 id="the-five-ears-patterns">The five EARS patterns</h2>
 <table>
 <thead>
@@ -647,7 +762,7 @@ REST API, which asks a foundation model (via Amazon Bedrock, in-region in
 </tr>
 <tr>
 <td>Optional feature</td>
-<td>Where &lt;feature&gt;, the &lt;system&gt; shall &lt;response&gt;.</td>
+<td>Where &lt;feature&gt; is included, the &lt;system&gt; shall &lt;response&gt;.</td>
 </tr>
 </tbody>
 </table>

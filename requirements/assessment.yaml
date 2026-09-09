@@ -1,0 +1,19 @@
+individualRequirements:
+  - id: REL_0001
+    qualityScore: 0.995
+    suggestedWording: something the LLM returns that ensures all the rules will pass
+    incoseRules:
+      - rule1:
+        name: Structured Statements
+        description: Need and requirement statements must conform to agreed patterns, resulting in well-structured complete statements
+        objective: Ensure consistency, completeness, and conformance to organizational standards
+        result: pass
+      - rule 2:
+        # etc...
+
+requirementSet:
+  - rule15: # assuming this one applies to a set of rules
+    ruleFailures:
+      - REL_0004
+      - REL_0043
+    suggestion: These two rules conflict

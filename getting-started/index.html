@@ -707,13 +707,19 @@ The token lasts 30 days; when it expires, run <code>owatch login</code> again.</
 </table>
 <h2 id="the-requirements-directory">The requirements directory</h2>
 <p>Requirements live in YAML files: a list of entries, each with a
-free-form <code>id</code>, the <code>requirement</code> text, and an optional list of <code>tags</code>.</p>
+free-form <code>id</code>, the <code>requirement</code> text, an optional list of <code>tags</code>, and
+an optional <code>status</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span>
 <span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">When a user submits a requirement, the Overwatch REST API shall return an assessment.</span>
 <span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_002</span>
 <span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system should probably be fast.</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_003</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The Overwatch API shall store patient data only in the United Kingdom.</span>
+<span class="w">  </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span>
 </code></pre></div>
+<p>The only <code>status</code> value is <code>accepted</code>. An accepted requirement is never
+sent for assessment; see <a href="#assessing-a-requirement">Assessing a requirement</a>.</p>
 <p>IDs must be non-empty and contain only letters, digits, <code>_</code> or <code>-</code>, so
 they stay unambiguous in YAML, logs, and error messages.</p>
 <p>Those files live together in a directory, which is the unit Overwatch
@@ -789,18 +795,66 @@ whole directory, so you do not have to know which file holds it:</p>
 has written to the current directory:</p>
 <div class="highlight"><pre><span></span><code>assessment_20260826_155425_767111.yaml
 </code></pre></div>
-<p>which contains the result:</p>
+<p>which contains one entry per requirement. A requirement that passes both
+rules scores 1 and gets no suggestion:</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_001</span>
-<span class="w">  </span><span class="nt">ears_assessment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Compliant</span>
-<span class="w">  </span><span class="nt">matched_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Event-driven</span>
-<span class="w">  </span><span class="nt">rationale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The requirement follows the When &lt;trigger&gt;, the &lt;system&gt; shall &lt;response&gt; shape.</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">When a user submits a requirement, the Overwatch REST API shall return an assessment.</span>
 <span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">assess</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">quality_score</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">assessment_detail</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">guide_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INCOSE-TP-2010-006-04 v4 (2023)</span>
+<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">r1</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Structured Statements</span>
+<span class="w">      </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">matched_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Event-driven</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">r2</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Voice</span>
+<span class="w">      </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">    </span><span class="nt">characteristics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">c2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">c3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">c4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">c7</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">c8</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not-assessed</span>
+<span class="w">      </span><span class="nt">c9</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
 </code></pre></div>
-<p>Any tags the requirement carries are copied onto its result, so an
+<p>A requirement that fails a rule quotes the failing text, explains why,
+and offers a rewrite with <code>&lt;placeholders&gt;</code> for everything Overwatch
+cannot know:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_002</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The system should probably be fast.</span>
+<span class="w">  </span><span class="nt">quality_score</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">  </span><span class="nt">suggested_requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The &lt;system&gt; shall &lt;response&gt; within &lt;N&gt; seconds.</span>
+<span class="w">  </span><span class="nt">assessment_detail</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">guide_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INCOSE-TP-2010-006-04 v4 (2023)</span>
+<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">r1</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Structured Statements</span>
+<span class="w">      </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span>
+<span class="w">      </span><span class="nt">evidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">should probably</span>
+<span class="w">      </span><span class="nt">rationale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">No EARS pattern matched. "should" is not the agreed modal verb and "probably" leaves the requirement optional.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">r2</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Voice</span>
+<span class="w">      </span><span class="nt">result</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">    </span><span class="nt">characteristics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">c2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+<span class="w">      </span><span class="nt">c3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span>
+<span class="w">      </span><span class="nt">c4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span>
+<span class="w">      </span><span class="nt">c7</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span>
+<span class="w">      </span><span class="nt">c8</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not-assessed</span>
+<span class="w">      </span><span class="nt">c9</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span>
+</code></pre></div>
+<p>An accepted requirement is listed but not assessed:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REQ_003</span>
+<span class="w">  </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The Overwatch API shall store patient data only in the United Kingdom.</span>
+<span class="w">  </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span>
+</code></pre></div>
+<p>Any tags the requirement carries are copied onto its entry, so an
 assessment file can be filtered by tag on its own. A requirement with no
-tags produces a result with no <code>tags</code> key.</p>
-<p>See <a href="../">Home</a> for what the verdicts and patterns mean, and the
-<a href="../cli/owatch/">CLI reference</a> for every command and flag.</p>
+tags produces an entry with no <code>tags</code> key.</p>
+<p>See <a href="../">Home</a> for what the rules, characteristics and score mean,
+and the <a href="../cli/owatch/">CLI reference</a> for every command and flag.</p>
 <h2 id="when-it-fails">When it fails</h2>
 <ul>
 <li><strong><code>OWATCH_API_URL is not set and this build has no embedded default</code></strong>
